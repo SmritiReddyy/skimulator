@@ -6,6 +6,7 @@ and returns an ``Issue``, a list of issues, or ``None``.
 
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
+from functools import cached_property
 
 from .bullets import analyze_bullets
 from .characters import (
@@ -16,7 +17,7 @@ from .characters import (
     icon_fonts,
     is_safe_font,
 )
-from .models import Contact, Issue, Severity
+from .models import BulletFeedback, Contact, Issue, Severity
 from .parsers import ParsedResume
 from .sections import CORE_SECTIONS, detect_contact
 
@@ -32,6 +33,10 @@ class CheckContext:
     @property
     def word_count(self) -> int:
         return len(self.parsed.text.split())
+
+    @cached_property
+    def bullets(self) -> list[BulletFeedback]:
+        return analyze_bullets(self.parsed.body_text or self.parsed.text)
 
 
 CheckResult = Issue | Iterable[Issue] | None
@@ -228,7 +233,7 @@ def contact_only_in_header(ctx: CheckContext) -> CheckResult:
 
 @check
 def bullets_without_metrics(ctx: CheckContext) -> CheckResult:
-    bullets = analyze_bullets(ctx.parsed.body_text or ctx.parsed.text)
+    bullets = ctx.bullets
     vague = [b for b in bullets if "no-metric" in b.problems]
     # Not every bullet needs a number, but most strong ones have one.
     if len(bullets) < 3 or len(vague) <= len(bullets) / 2:
@@ -244,7 +249,7 @@ def bullets_without_metrics(ctx: CheckContext) -> CheckResult:
 
 @check
 def weak_bullets(ctx: CheckContext) -> CheckResult:
-    bullets = analyze_bullets(ctx.parsed.body_text or ctx.parsed.text)
+    bullets = ctx.bullets
     weak = sum("weak-opener" in b.problems for b in bullets)
     long = sum("too-long" in b.problems for b in bullets)
     issues = []
