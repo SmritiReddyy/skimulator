@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { analyzeResume } from "./api";
+import BulletFeedback from "./components/BulletFeedback";
 import ExtractedText from "./components/ExtractedText";
 import IssueList from "./components/IssueList";
 import KeywordPanel from "./components/KeywordPanel";
@@ -82,6 +83,12 @@ export default function App() {
               {result.keywords && (
                 <Card title="Job description keywords">
                   <KeywordPanel keywords={result.keywords} />
+                </Card>
+              )}
+
+              {result.bullets.length > 0 && (
+                <Card title="Bullet points">
+                  <BulletFeedback bullets={result.bullets} />
                 </Card>
               )}
 

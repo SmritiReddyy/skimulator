@@ -14,6 +14,11 @@ export interface KeywordMatch {
   score: number;
 }
 
+export interface BulletFeedback {
+  text: string;
+  problems: string[];
+}
+
 export interface AnalysisResult {
   score: number;
   page_count: number;
@@ -23,6 +28,7 @@ export interface AnalysisResult {
   fonts: string[];
   issues: Issue[];
   keywords: KeywordMatch | null;
+  bullets: BulletFeedback[];
   extracted_text: string;
   lines: TextLine[];
 }

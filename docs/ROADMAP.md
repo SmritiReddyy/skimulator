@@ -59,7 +59,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `feat(backend)`: flag bullets with no numbers or metrics
 - [x] `feat(backend)`: flag weak openers ("responsible for", "helped with") and bullets over 2 lines
 - [x] `test`: bullet analysis tests
-- [ ] `feat(frontend)`: bullet feedback card with the flagged lines
+- [x] `feat(frontend)`: bullet feedback card with the flagged lines
 
 ## Week 2: polish and ship
 
