@@ -7,6 +7,7 @@ and returns an ``Issue``, a list of issues, or ``None``.
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 
+from .bullets import analyze_bullets
 from .characters import (
     count_cid_glyphs,
     count_private_use,
@@ -222,6 +223,22 @@ def contact_only_in_header(ctx: CheckContext) -> CheckResult:
         title="Contact info only in the header or footer",
         detail=f"Your {', '.join(hidden)} only appear(s) in the page header/footer area. "
         "Many ATS skip those regions, so move contact details into the main body.",
+    )
+
+
+@check
+def bullets_without_metrics(ctx: CheckContext) -> CheckResult:
+    bullets = analyze_bullets(ctx.parsed.body_text or ctx.parsed.text)
+    vague = [b for b in bullets if "no-metric" in b.problems]
+    # Not every bullet needs a number, but most strong ones have one.
+    if len(bullets) < 3 or len(vague) <= len(bullets) / 2:
+        return None
+    return Issue(
+        id="few-metrics",
+        severity=Severity.info,
+        title="Few measurable results",
+        detail=f"{len(vague)} of {len(bullets)} bullet points have no numbers. Quantify impact "
+        "where you can: users served, time saved, % improved, team size, $ saved.",
     )
 
 

@@ -10,6 +10,11 @@ BULLET_CHARS = "•●▪■◦○‣∙·-–—*>"
 BULLET_RE = re.compile(rf"^\s*[{re.escape(BULLET_CHARS)}]\s+")
 YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
 MIN_BULLET_WORDS = 6  # shorter lines are usually titles, company names or dates
+METRIC_RE = re.compile(
+    r"\d|%|\$|€|£|\b(one|two|three|four|five|six|seven|eight|nine|ten|dozens?|hundreds?|"
+    r"thousands?|millions?|billions?|double[ds]?|tripled?|halved)\b",
+    re.IGNORECASE,
+)
 
 
 def _looks_like_role_line(line: str) -> bool:
@@ -36,5 +41,17 @@ def extract_bullets(text: str) -> list[str]:
     return bullets
 
 
+def has_metric(bullet: str) -> bool:
+    """Numbers, percentages, money or number words ('tripled', 'thousands')."""
+    return bool(METRIC_RE.search(bullet))
+
+
+def bullet_problems(bullet: str) -> list[str]:
+    problems = []
+    if not has_metric(bullet):
+        problems.append("no-metric")
+    return problems
+
+
 def analyze_bullets(text: str) -> list[BulletFeedback]:
-    return [BulletFeedback(text=b, problems=[]) for b in extract_bullets(text)]
+    return [BulletFeedback(text=b, problems=bullet_problems(b)) for b in extract_bullets(text)]
