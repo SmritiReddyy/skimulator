@@ -243,6 +243,34 @@ def bullets_without_metrics(ctx: CheckContext) -> CheckResult:
 
 
 @check
+def weak_bullets(ctx: CheckContext) -> CheckResult:
+    bullets = analyze_bullets(ctx.parsed.body_text or ctx.parsed.text)
+    weak = sum("weak-opener" in b.problems for b in bullets)
+    long = sum("too-long" in b.problems for b in bullets)
+    issues = []
+    if weak:
+        issues.append(
+            Issue(
+                id="weak-openers",
+                severity=Severity.info,
+                title=f"{weak} bullet(s) start with a weak phrase",
+                detail="Phrases like 'responsible for' or 'helped with' describe duties, not "
+                "results. Lead with a strong verb: built, led, cut, launched, automated.",
+            )
+        )
+    if long:
+        issues.append(
+            Issue(
+                id="long-bullets",
+                severity=Severity.info,
+                title=f"{long} bullet(s) run past two lines",
+                detail="Recruiters skim. Keep each bullet to one idea and under ~2 lines.",
+            )
+        )
+    return issues
+
+
+@check
 def no_phone(ctx: CheckContext) -> CheckResult:
     if ctx.contact.phone:
         return None

@@ -41,6 +41,32 @@ def extract_bullets(text: str) -> list[str]:
     return bullets
 
 
+WEAK_OPENERS = (
+    "responsible for",
+    "helped",
+    "helped with",
+    "assisted",
+    "assisted with",
+    "worked on",
+    "worked with",
+    "involved in",
+    "participated in",
+    "duties included",
+    "tasked with",
+    "in charge of",
+    "contributed to",
+    "was part of",
+)
+MAX_BULLET_WORDS = 35  # roughly two lines on a letter page
+
+
+def weak_opener(bullet: str) -> str | None:
+    lowered = bullet.lower().lstrip()
+    return next(
+        (w for w in sorted(WEAK_OPENERS, key=len, reverse=True) if lowered.startswith(w)), None
+    )
+
+
 def has_metric(bullet: str) -> bool:
     """Numbers, percentages, money or number words ('tripled', 'thousands')."""
     return bool(METRIC_RE.search(bullet))
@@ -50,6 +76,10 @@ def bullet_problems(bullet: str) -> list[str]:
     problems = []
     if not has_metric(bullet):
         problems.append("no-metric")
+    if weak_opener(bullet):
+        problems.append("weak-opener")
+    if len(bullet.split()) > MAX_BULLET_WORDS:
+        problems.append("too-long")
     return problems
 
 

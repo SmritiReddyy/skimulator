@@ -57,7 +57,7 @@ Status: `[ ]` todo · `[x]` done
 ### Day 7: Wed Dec 2, bullet-point quality
 - [x] `feat(backend)`: split experience sections into bullets
 - [x] `feat(backend)`: flag bullets with no numbers or metrics
-- [ ] `feat(backend)`: flag weak openers ("responsible for", "helped with") and bullets over 2 lines
+- [x] `feat(backend)`: flag weak openers ("responsible for", "helped with") and bullets over 2 lines
 - [ ] `test`: bullet analysis tests
 - [ ] `feat(frontend)`: bullet feedback card with the flagged lines
 
