@@ -9,7 +9,7 @@ from .sections import detect_contact, detect_sections
 
 MAX_BYTES = 5 * 1024 * 1024
 
-app = FastAPI(title="ATS Lens", version="0.1.0")
+app = FastAPI(title="Skimulator", version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],

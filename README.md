@@ -1,8 +1,8 @@
-# ATS Lens
+# Skimulator
 
-**See your resume the way an applicant tracking system does.**
+**Simulates how an applicant tracking system skims your resume, and shows you what survives.**
 
-Most companies run resumes through an ATS (Workday, Greenhouse, Lever, iCIMS) before a person reads them. These parsers are much dumber than people expect: two-column layouts get read straight across, tables get skipped, and text inside headers or images disappears. ATS Lens parses your PDF the same naive way, shows you exactly what comes out, and tells you what to fix.
+Most companies run resumes through an ATS (Workday, Greenhouse, Lever, iCIMS) before a person reads them. These parsers are much dumber than people expect: two-column layouts get read straight across, tables get skipped, and text inside headers or images disappears. Skimulator parses your PDF the same naive way, shows you exactly what comes out, and tells you what to fix.
 
 ## Features
 

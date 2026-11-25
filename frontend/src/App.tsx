@@ -36,7 +36,7 @@ export default function App() {
     <div className="mx-auto max-w-6xl px-4 py-10">
       <header className="mb-10">
         <h1 className="text-3xl font-bold tracking-tight">
-          ATS <span className="text-accent">Lens</span>
+          Skim<span className="text-accent">ulator</span>
         </h1>
         <p className="mt-2 text-slate-600">
           See your resume the way an applicant tracking system does, so it doesn't get filtered out

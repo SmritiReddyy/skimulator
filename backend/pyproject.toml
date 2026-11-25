@@ -1,5 +1,5 @@
 [project]
-name = "ats-lens"
+name = "skimulator"
 version = "0.1.0"
 description = "See your resume the way an applicant tracking system does."
 requires-python = ">=3.11"
