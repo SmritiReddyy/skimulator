@@ -18,7 +18,7 @@ Status: `[ ]` todo · `[x]` done
 ### Day 1: Thu Nov 26, CI and project hygiene
 - [x] `ci`: GitHub Actions workflow for the backend (ruff + pytest)
 - [x] `ci`: frontend job (`tsc` + `vite build`)
-- [ ] `chore`: add ESLint + Prettier to the frontend and fix any findings
+- [x] `chore`: add ESLint + Prettier to the frontend and fix any findings
 - [ ] `docs`: CI and license badges in the README
 - [ ] `chore`: `.editorconfig` and a PR template
 

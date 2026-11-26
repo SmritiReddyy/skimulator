@@ -24,7 +24,9 @@ export default function IssueList({ issues }: { issues: Issue[] }) {
       {sorted.map((issue) => (
         <li key={issue.id} className="rounded-xl border border-slate-200 bg-white p-4">
           <div className="flex items-center gap-2">
-            <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${STYLES[issue.severity].badge}`}>
+            <span
+              className={`rounded-full px-2 py-0.5 text-xs font-semibold ${STYLES[issue.severity].badge}`}
+            >
               {STYLES[issue.severity].label}
             </span>
             <h4 className="font-semibold">{issue.title}</h4>

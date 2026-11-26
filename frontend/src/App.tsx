@@ -39,8 +39,8 @@ export default function App() {
           Skim<span className="text-accent">ulator</span>
         </h1>
         <p className="mt-2 text-slate-600">
-          See your resume the way an applicant tracking system does, so it doesn't get filtered out
-          before a recruiter ever reads it.
+          See your resume the way an applicant tracking system does, so it doesn't get filtered out before a
+          recruiter ever reads it.
         </p>
       </header>
 
