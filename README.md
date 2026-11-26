@@ -1,5 +1,11 @@
 # Skimulator
 
+[![CI](https://github.com/SmritiReddyy/skimulator/actions/workflows/ci.yml/badge.svg)](https://github.com/SmritiReddyy/skimulator/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)
+![React](https://img.shields.io/badge/react-18-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/typescript-5-3178C6?logo=typescript&logoColor=white)
+
 **Simulates how an applicant tracking system skims your resume, and shows you what survives.**
 
 Most companies run resumes through an ATS (Workday, Greenhouse, Lever, iCIMS) before a person reads them. These parsers are much dumber than people expect: two-column layouts get read straight across, tables get skipped, and text inside headers or images disappears. Skimulator parses your PDF the same naive way, shows you exactly what comes out, and tells you what to fix.
@@ -36,7 +42,15 @@ npm install
 npm run dev
 ```
 
-Run the tests with `cd backend && pytest`.
+## Development
+
+| Task              | Backend (`backend/`)             | Frontend (`frontend/`)  |
+| ----------------- | -------------------------------- | ----------------------- |
+| Lint              | `ruff check .`                   | `npm run lint`          |
+| Format            | `ruff format .`                  | `npm run format`        |
+| Test / typecheck  | `pytest`                         | `npm run build`         |
+
+CI runs all of these on every push and pull request.
 
 ## API
 

@@ -19,7 +19,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `ci`: GitHub Actions workflow for the backend (ruff + pytest)
 - [x] `ci`: frontend job (`tsc` + `vite build`)
 - [x] `chore`: add ESLint + Prettier to the frontend and fix any findings
-- [ ] `docs`: CI and license badges in the README
+- [x] `docs`: CI and license badges in the README
 - [ ] `chore`: `.editorconfig` and a PR template
 
 ### Day 2: Fri Nov 27, reading-order simulation
