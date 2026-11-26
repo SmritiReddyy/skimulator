@@ -16,7 +16,7 @@ Status: `[ ]` todo · `[x]` done
 ## Week 1: make the analysis smarter
 
 ### Day 1: Thu Nov 26, CI and project hygiene
-- [ ] `ci`: GitHub Actions workflow for the backend (ruff + pytest)
+- [x] `ci`: GitHub Actions workflow for the backend (ruff + pytest)
 - [ ] `ci`: frontend job (`tsc` + `vite build`)
 - [ ] `chore`: add ESLint + Prettier to the frontend and fix any findings
 - [ ] `docs`: CI and license badges in the README
