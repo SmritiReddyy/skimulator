@@ -20,7 +20,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `ci`: frontend job (`tsc` + `vite build`)
 - [x] `chore`: add ESLint + Prettier to the frontend and fix any findings
 - [x] `docs`: CI and license badges in the README
-- [ ] `chore`: `.editorconfig` and a PR template
+- [x] `chore`: `.editorconfig` and a PR template
 
 ### Day 2: Fri Nov 27, reading-order simulation
 - [ ] `feat(backend)`: return per-line text with x/y coordinates
