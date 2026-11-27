@@ -30,4 +30,5 @@ export interface TextLine {
   top: number;
   x0: number;
   text: string;
+  scrambled: boolean;
 }

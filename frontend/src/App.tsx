@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { analyzeResume } from "./api";
+import ExtractedText from "./components/ExtractedText";
 import IssueList from "./components/IssueList";
 import KeywordPanel from "./components/KeywordPanel";
 import ScoreRing from "./components/ScoreRing";
@@ -83,9 +84,7 @@ export default function App() {
               )}
 
               <Card title="What the ATS sees">
-                <pre className="max-h-96 overflow-auto whitespace-pre-wrap rounded-xl bg-slate-50 p-4 font-mono text-xs leading-relaxed text-slate-700">
-                  {result.extracted_text || "(no text extracted)"}
-                </pre>
+                <ExtractedText lines={result.lines} fallback={result.extracted_text} />
               </Card>
             </>
           )}

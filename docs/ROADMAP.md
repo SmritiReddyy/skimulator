@@ -26,7 +26,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `feat(backend)`: return per-line text with x/y coordinates
 - [x] `feat(backend)`: simulate the naive left-to-right reading order and mark lines that interleave columns
 - [x] `test`: two-column fixture PDF + reading-order tests
-- [ ] `feat(frontend)`: highlight scrambled lines in the "What the ATS sees" panel
+- [x] `feat(frontend)`: highlight scrambled lines in the "What the ATS sees" panel
 
 ### Day 3: Sat Nov 28, header and footer detection
 - [ ] `feat(backend)`: detect text in the top and bottom page margins
