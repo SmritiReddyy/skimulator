@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .checks import run_checks, score
 from .keywords import match_keywords
-from .models import AnalysisResult
+from .models import AnalysisResult, TextLine
 from .parser import parse_pdf
 from .sections import detect_contact, detect_sections
 
@@ -52,4 +52,5 @@ async def analyze(
         issues=issues,
         keywords=match_keywords(parsed.text, job_description) if job_description.strip() else None,
         extracted_text=parsed.text,
+        lines=[TextLine(page=ln.page, top=ln.top, x0=ln.x0, text=ln.text) for ln in parsed.lines],
     )

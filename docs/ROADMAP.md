@@ -23,7 +23,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `chore`: `.editorconfig` and a PR template
 
 ### Day 2: Fri Nov 27, reading-order simulation
-- [ ] `feat(backend)`: return per-line text with x/y coordinates
+- [x] `feat(backend)`: return per-line text with x/y coordinates
 - [ ] `feat(backend)`: simulate the naive left-to-right reading order and mark lines that interleave columns
 - [ ] `test`: two-column fixture PDF + reading-order tests
 - [ ] `feat(frontend)`: highlight scrambled lines in the "What the ATS sees" panel

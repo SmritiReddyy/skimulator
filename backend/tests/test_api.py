@@ -37,3 +37,11 @@ def test_blank_pdf_is_critical(client):
 def test_rejects_non_pdf(client):
     res = client.post("/api/analyze", files={"file": ("cv.txt", b"hello", "text/plain")})
     assert res.status_code == 415
+
+
+def test_returns_positioned_lines(client, good_pdf):
+    res = client.post("/api/analyze", files={"file": ("cv.pdf", good_pdf, "application/pdf")})
+    lines = res.json()["lines"]
+    assert lines[0]["text"] == "Jane Doe"
+    assert lines[0]["page"] == 1
+    assert all(a["top"] < b["top"] for a, b in zip(lines, lines[1:], strict=False))

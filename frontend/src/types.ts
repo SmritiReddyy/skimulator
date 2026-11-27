@@ -22,4 +22,12 @@ export interface AnalysisResult {
   issues: Issue[];
   keywords: KeywordMatch | null;
   extracted_text: string;
+  lines: TextLine[];
+}
+
+export interface TextLine {
+  page: number;
+  top: number;
+  x0: number;
+  text: string;
 }

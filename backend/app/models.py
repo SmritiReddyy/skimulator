@@ -28,6 +28,13 @@ class KeywordMatch(BaseModel):
     score: int  # 0-100
 
 
+class TextLine(BaseModel):
+    page: int
+    top: float
+    x0: float
+    text: str
+
+
 class AnalysisResult(BaseModel):
     score: int  # 0-100
     page_count: int
@@ -37,3 +44,4 @@ class AnalysisResult(BaseModel):
     issues: list[Issue]
     keywords: KeywordMatch | None = None
     extracted_text: str
+    lines: list[TextLine] = []
