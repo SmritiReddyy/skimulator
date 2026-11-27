@@ -33,6 +33,7 @@ class TextLine(BaseModel):
     top: float
     x0: float
     text: str
+    scrambled: bool = False
 
 
 class AnalysisResult(BaseModel):

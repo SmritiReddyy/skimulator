@@ -24,13 +24,15 @@ def run_checks(parsed: ParsedResume, sections: list[str], contact: Contact) -> l
 
     if parsed.multi_column_pages:
         pages = ", ".join(map(str, parsed.multi_column_pages))
+        scrambled = sum(1 for line in parsed.lines if line.scrambled)
+        mixed = f" {scrambled} line(s) mix text from both columns." if scrambled else ""
         issues.append(
             Issue(
                 id="multi-column",
                 severity=Severity.warning,
                 title="Multi-column layout",
                 detail=f"Page(s) {pages} appear to use columns. Many parsers read straight "
-                "across, mixing the columns together. A single-column layout is safer.",
+                f"across, mixing the columns together.{mixed} A single-column layout is safer.",
             )
         )
 

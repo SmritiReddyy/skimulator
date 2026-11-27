@@ -5,6 +5,8 @@ from io import BytesIO
 
 import pdfplumber
 
+from .reading_order import mark_scrambled
+
 ROW_TOLERANCE = 3  # points; words whose tops differ by less than this share a row
 
 
@@ -16,6 +18,7 @@ class Line:
     x1: float
     text: str
     words: list[dict] = field(default_factory=list, repr=False)
+    scrambled: bool = False
 
 
 @dataclass
@@ -84,6 +87,11 @@ def parse_pdf(data: bytes) -> ParsedResume:
             if _looks_multi_column(page):
                 result.multi_column_pages.append(i)
             result.fonts.update(c.get("fontname", "") for c in page.chars)
+
+        for page_no in mark_scrambled(result.lines):
+            if page_no not in result.multi_column_pages:
+                result.multi_column_pages.append(page_no)
+        result.multi_column_pages.sort()
 
         result.text = "\n".join(texts).strip()
         result.fonts.discard("")

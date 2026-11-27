@@ -52,5 +52,8 @@ async def analyze(
         issues=issues,
         keywords=match_keywords(parsed.text, job_description) if job_description.strip() else None,
         extracted_text=parsed.text,
-        lines=[TextLine(page=ln.page, top=ln.top, x0=ln.x0, text=ln.text) for ln in parsed.lines],
+        lines=[
+            TextLine(page=ln.page, top=ln.top, x0=ln.x0, text=ln.text, scrambled=ln.scrambled)
+            for ln in parsed.lines
+        ],
     )
