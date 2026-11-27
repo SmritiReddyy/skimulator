@@ -36,6 +36,43 @@ def make_pdf(text: str) -> bytes:
     return buf.getvalue()
 
 
+def make_two_column_pdf() -> bytes:
+    """A sidebar-style resume: main content on the left, skills/contact on the right."""
+    left = [
+        "Experience",
+        "Software Engineer, Acme Corp",
+        "Built REST APIs in Python serving 2M requests",
+        "Led the migration of batch jobs to AWS",
+        "Software Engineering Intern, Beta Labs",
+        "Built a React dashboard for deployments",
+        "Education",
+        "B.S. Computer Science, State University",
+    ]
+    right = [
+        "Skills",
+        "Python, FastAPI, PostgreSQL",
+        "Docker, Kubernetes, AWS",
+        "React, TypeScript",
+        "Contact",
+        "jane.doe@example.com",
+        "(555) 123-4567",
+        "linkedin.com/in/janedoe",
+    ]
+    buf = BytesIO()
+    c = canvas.Canvas(buf, pagesize=letter)
+    c.drawString(72, 740, "Jane Doe")
+    y = 710
+    for lt, rt in zip(left, right, strict=True):
+        c.drawString(72, y, lt)
+        c.drawString(380, y, rt)
+        y -= 16
+    # A single-column row with a right-aligned date must not count as scrambled.
+    c.drawString(72, y - 20, "Freelance Developer")
+    c.drawRightString(540, y - 20, "2020 - 2021")
+    c.save()
+    return buf.getvalue()
+
+
 @pytest.fixture
 def client() -> TestClient:
     return TestClient(app)

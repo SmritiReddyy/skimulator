@@ -25,7 +25,7 @@ Status: `[ ]` todo · `[x]` done
 ### Day 2: Fri Nov 27, reading-order simulation
 - [x] `feat(backend)`: return per-line text with x/y coordinates
 - [x] `feat(backend)`: simulate the naive left-to-right reading order and mark lines that interleave columns
-- [ ] `test`: two-column fixture PDF + reading-order tests
+- [x] `test`: two-column fixture PDF + reading-order tests
 - [ ] `feat(frontend)`: highlight scrambled lines in the "What the ATS sees" panel
 
 ### Day 3: Sat Nov 28, header and footer detection
