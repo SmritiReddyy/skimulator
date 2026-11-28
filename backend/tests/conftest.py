@@ -73,6 +73,25 @@ def make_two_column_pdf() -> bytes:
     return buf.getvalue()
 
 
+def make_header_contact_pdf(pages: int = 1) -> bytes:
+    """Contact details in the page header (and a page-number footer), like a Word template."""
+    body = GOOD_RESUME.splitlines()[2:]
+    buf = BytesIO()
+    c = canvas.Canvas(buf, pagesize=letter)
+    for page in range(1, pages + 1):
+        c.setFont("Helvetica", 9)
+        c.drawString(72, 770, "Jane Doe | jane.doe@example.com | (555) 123-4567")
+        c.drawCentredString(306, 20, f"Page {page} of {pages}")
+        c.setFont("Helvetica", 12)
+        y = 700
+        for line in body:
+            c.drawString(72, y, line)
+            y -= 16
+        c.showPage()
+    c.save()
+    return buf.getvalue()
+
+
 @pytest.fixture
 def client() -> TestClient:
     return TestClient(app)

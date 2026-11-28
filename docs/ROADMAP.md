@@ -31,7 +31,7 @@ Status: `[ ]` todo · `[x]` done
 ### Day 3: Sat Nov 28, header and footer detection
 - [x] `feat(backend)`: detect text in the top and bottom page margins
 - [x] `feat(backend)`: warn when the email or phone only appears in the header or footer
-- [ ] `test`: header/footer fixture PDFs
+- [x] `test`: header/footer fixture PDFs
 - [x] `refactor(backend)`: move each check into its own function in a registry
 
 ### Day 4: Sun Nov 29, font and character checks
