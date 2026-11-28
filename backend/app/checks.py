@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 from .models import Contact, Issue, Severity
 from .parser import ParsedResume
-from .sections import CORE_SECTIONS
+from .sections import CORE_SECTIONS, detect_contact
 
 PENALTY = {Severity.critical: 30, Severity.warning: 10, Severity.info: 2}
 
@@ -113,6 +113,32 @@ def no_email(ctx: CheckContext) -> CheckResult:
         title="No email address found",
         detail="Recruiters can't reach you. Put your email in the body text, "
         "not in a header, footer or image.",
+    )
+
+
+@check
+def contact_only_in_header(ctx: CheckContext) -> CheckResult:
+    """Many ATS discard headers and footers, taking any contact info there with them."""
+    if not ctx.parsed.lines:  # no layout information (e.g. plain-text input)
+        return None
+    body = detect_contact(ctx.parsed.body_text)
+    hidden = [
+        label
+        for label, found, in_body in (
+            ("email", ctx.contact.email, body.email),
+            ("phone number", ctx.contact.phone, body.phone),
+            ("LinkedIn URL", ctx.contact.linkedin, body.linkedin),
+        )
+        if found and not in_body
+    ]
+    if not hidden:
+        return None
+    return Issue(
+        id="contact-in-header",
+        severity=Severity.warning,
+        title="Contact info only in the header or footer",
+        detail=f"Your {', '.join(hidden)} only appear(s) in the page header/footer area. "
+        "Many ATS skip those regions, so move contact details into the main body.",
     )
 
 
