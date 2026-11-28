@@ -32,7 +32,7 @@ Status: `[ ]` todo · `[x]` done
 - [ ] `feat(backend)`: detect text in the top and bottom page margins
 - [ ] `feat(backend)`: warn when the email or phone only appears in the header or footer
 - [ ] `test`: header/footer fixture PDFs
-- [ ] `refactor(backend)`: move each check into its own function in a registry
+- [x] `refactor(backend)`: move each check into its own function in a registry
 
 ### Day 4: Sun Nov 29, font and character checks
 - [ ] `feat(backend)`: detect private-use Unicode and icon-font glyphs (Font Awesome etc.)
