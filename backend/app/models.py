@@ -34,6 +34,7 @@ class TextLine(BaseModel):
     x0: float
     text: str
     scrambled: bool = False
+    zone: str = "body"
 
 
 class AnalysisResult(BaseModel):

@@ -31,4 +31,5 @@ export interface TextLine {
   x0: number;
   text: string;
   scrambled: boolean;
+  zone: "header" | "body" | "footer";
 }
