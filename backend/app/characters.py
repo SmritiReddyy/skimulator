@@ -52,3 +52,67 @@ def find_ligatures(text: str) -> dict[str, int]:
 def count_cid_glyphs(text: str) -> int:
     """'(cid:123)' is what extractors emit for glyphs with no Unicode mapping."""
     return len(CID_RE.findall(text))
+
+
+# Fonts that extract cleanly almost everywhere. Prefix match on a normalized family name,
+# which also covers LaTeX's Computer Modern / Latin Modern (CMR10, LMRoman10, ...).
+SAFE_FONT_PREFIXES = (
+    "arial",
+    "helvetica",
+    "calibri",
+    "cambria",
+    "georgia",
+    "garamond",
+    "ebgaramond",
+    "times",
+    "verdana",
+    "tahoma",
+    "trebuchet",
+    "lato",
+    "roboto",
+    "opensans",
+    "sourcesans",
+    "sourceserif",
+    "inter",
+    "montserrat",
+    "palatino",
+    "bookantiqua",
+    "bookman",
+    "century",
+    "carlito",
+    "liberation",
+    "dejavu",
+    "segoe",
+    "sfpro",
+    "aptos",
+    "cmr",
+    "cmbx",
+    "cmti",
+    "cmsy",
+    "cmmi",
+    "cmss",
+    "cmtt",
+    "lmroman",
+    "lmsans",
+    "lmmono",
+    "charter",
+    "noto",
+    "ptsans",
+    "ptserif",
+    "raleway",
+    "merriweather",
+)
+
+
+def font_family(name: str) -> str:
+    """'ABCDEF+Calibri-BoldItalic' -> 'Calibri'; 'TimesNewRomanPS-BoldMT' -> 'TimesNewRomanPS'."""
+    return re.split(r"[-,]", clean_font_name(name))[0]
+
+
+def font_families(fonts: set[str]) -> list[str]:
+    return sorted({font_family(f) for f in fonts if f})
+
+
+def is_safe_font(family: str) -> bool:
+    key = re.sub(r"[^a-z]", "", family.lower())
+    return key.startswith(SAFE_FONT_PREFIXES)

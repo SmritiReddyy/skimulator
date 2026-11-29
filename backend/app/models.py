@@ -43,6 +43,7 @@ class AnalysisResult(BaseModel):
     word_count: int
     contact: Contact
     sections: list[str]
+    fonts: list[str] = []
     issues: list[Issue]
     keywords: KeywordMatch | None = None
     extracted_text: str

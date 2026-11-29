@@ -7,7 +7,14 @@ and returns an ``Issue``, a list of issues, or ``None``.
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 
-from .characters import count_cid_glyphs, count_private_use, find_ligatures, icon_fonts
+from .characters import (
+    count_cid_glyphs,
+    count_private_use,
+    find_ligatures,
+    font_families,
+    icon_fonts,
+    is_safe_font,
+)
 from .models import Contact, Issue, Severity
 from .parser import ParsedResume
 from .sections import CORE_SECTIONS, detect_contact
@@ -131,6 +138,34 @@ def garbled_text(ctx: CheckContext) -> CheckResult:
                 detail=f"Letter pairs like {examples} were merged into single ligature "
                 "characters, so keywords containing them may not match. Turn off ligatures "
                 "in your editor's typography settings.",
+            )
+        )
+    return issues
+
+
+@check
+def fonts(ctx: CheckContext) -> CheckResult:
+    icons = set(icon_fonts(ctx.parsed.fonts))
+    families = [f for f in font_families(ctx.parsed.fonts) if f not in icons]
+    issues = []
+    unusual = [f for f in families if not is_safe_font(f)]
+    if unusual:
+        issues.append(
+            Issue(
+                id="unusual-fonts",
+                severity=Severity.info,
+                title="Uncommon font(s)",
+                detail=f"{', '.join(unusual)} may not extract cleanly on every ATS. Check the "
+                "'What the ATS sees' panel for garbled words, or switch to a standard font.",
+            )
+        )
+    if len(families) > 3:
+        issues.append(
+            Issue(
+                id="too-many-fonts",
+                severity=Severity.info,
+                title=f"{len(families)} different fonts",
+                detail="Stick to one or two font families for a cleaner, more consistent resume.",
             )
         )
     return issues

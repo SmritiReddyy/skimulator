@@ -37,7 +37,7 @@ Status: `[ ]` todo · `[x]` done
 ### Day 4: Sun Nov 29, font and character checks
 - [x] `feat(backend)`: detect private-use Unicode and icon-font glyphs (Font Awesome etc.)
 - [x] `feat(backend)`: flag ligatures and `(cid:…)` garbage in the extracted text
-- [ ] `feat(backend)`: list the fonts used and flag unusual ones
+- [x] `feat(backend)`: list the fonts used and flag unusual ones
 - [ ] `test`: character-check tests
 - [ ] `feat(frontend)`: fonts list in the stats panel
 
