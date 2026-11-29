@@ -38,7 +38,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `feat(backend)`: detect private-use Unicode and icon-font glyphs (Font Awesome etc.)
 - [x] `feat(backend)`: flag ligatures and `(cid:…)` garbage in the extracted text
 - [x] `feat(backend)`: list the fonts used and flag unusual ones
-- [ ] `test`: character-check tests
+- [x] `test`: character-check tests
 - [ ] `feat(frontend)`: fonts list in the stats panel
 
 ### Day 5: Mon Nov 30, smarter keyword matching
