@@ -35,7 +35,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `refactor(backend)`: move each check into its own function in a registry
 
 ### Day 4: Sun Nov 29, font and character checks
-- [ ] `feat(backend)`: detect private-use Unicode and icon-font glyphs (Font Awesome etc.)
+- [x] `feat(backend)`: detect private-use Unicode and icon-font glyphs (Font Awesome etc.)
 - [ ] `feat(backend)`: flag ligatures and `(cid:…)` garbage in the extracted text
 - [ ] `feat(backend)`: list the fonts used and flag unusual ones
 - [ ] `test`: character-check tests

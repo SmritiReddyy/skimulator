@@ -7,6 +7,7 @@ and returns an ``Issue``, a list of issues, or ``None``.
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 
+from .characters import count_private_use, icon_fonts
 from .models import Contact, Issue, Severity
 from .parser import ParsedResume
 from .sections import CORE_SECTIONS, detect_contact
@@ -85,6 +86,22 @@ def images(ctx: CheckContext) -> CheckResult:
         title=f"{ctx.parsed.image_count} image(s) found",
         detail="Images, icons and logos are ignored by ATS. Make sure no information "
         "lives only inside an image.",
+    )
+
+
+@check
+def icon_glyphs(ctx: CheckContext) -> CheckResult:
+    pua = count_private_use(ctx.parsed.text)
+    fonts = icon_fonts(ctx.parsed.fonts)
+    if not pua and not fonts:
+        return None
+    via = f" (from {', '.join(fonts)})" if fonts else ""
+    return Issue(
+        id="icon-glyphs",
+        severity=Severity.warning,
+        title="Icon characters found",
+        detail=f"Found {pua} icon glyph(s){via}. ATS read these as random symbols or nothing. "
+        "Replace phone, email and location icons with plain text labels.",
     )
 
 
