@@ -7,7 +7,7 @@ and returns an ``Issue``, a list of issues, or ``None``.
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 
-from .characters import count_private_use, icon_fonts
+from .characters import count_cid_glyphs, count_private_use, find_ligatures, icon_fonts
 from .models import Contact, Issue, Severity
 from .parser import ParsedResume
 from .sections import CORE_SECTIONS, detect_contact
@@ -103,6 +103,37 @@ def icon_glyphs(ctx: CheckContext) -> CheckResult:
         detail=f"Found {pua} icon glyph(s){via}. ATS read these as random symbols or nothing. "
         "Replace phone, email and location icons with plain text labels.",
     )
+
+
+@check
+def garbled_text(ctx: CheckContext) -> CheckResult:
+    issues = []
+    cids = count_cid_glyphs(ctx.parsed.text)
+    if cids:
+        issues.append(
+            Issue(
+                id="unmapped-glyphs",
+                severity=Severity.critical if cids > 20 else Severity.warning,
+                title="Unreadable characters",
+                detail=f"{cids} character(s) have no text mapping and come out as '(cid:NN)'. "
+                "This usually means a font wasn't embedded properly. Re-export the PDF with "
+                "a standard font such as Arial, Calibri or Georgia.",
+            )
+        )
+    ligatures = find_ligatures(ctx.parsed.text)
+    if ligatures:
+        examples = ", ".join(f"'{k}'" for k in ligatures)
+        issues.append(
+            Issue(
+                id="ligatures",
+                severity=Severity.info,
+                title="Ligatures in text",
+                detail=f"Letter pairs like {examples} were merged into single ligature "
+                "characters, so keywords containing them may not match. Turn off ligatures "
+                "in your editor's typography settings.",
+            )
+        )
+    return issues
 
 
 @check
