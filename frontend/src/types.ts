@@ -19,6 +19,7 @@ export interface AnalysisResult {
   word_count: number;
   contact: { email: string | null; phone: string | null; linkedin: string | null };
   sections: string[];
+  fonts: string[];
   issues: Issue[];
   keywords: KeywordMatch | null;
   extracted_text: string;

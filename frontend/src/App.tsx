@@ -70,6 +70,8 @@ export default function App() {
                   <dd className="font-medium capitalize">{result.sections.join(", ") || "none"}</dd>
                   <dt className="text-slate-500">Email</dt>
                   <dd className="font-medium">{result.contact.email ?? "not found"}</dd>
+                  <dt className="text-slate-500">Fonts</dt>
+                  <dd className="font-medium">{result.fonts.join(", ") || "none detected"}</dd>
                 </dl>
               </section>
 

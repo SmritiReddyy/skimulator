@@ -39,7 +39,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `feat(backend)`: flag ligatures and `(cid:…)` garbage in the extracted text
 - [x] `feat(backend)`: list the fonts used and flag unusual ones
 - [x] `test`: character-check tests
-- [ ] `feat(frontend)`: fonts list in the stats panel
+- [x] `feat(frontend)`: fonts list in the stats panel
 
 ### Day 5: Mon Nov 30, smarter keyword matching
 - [ ] `feat(backend)`: bigram/trigram extraction ("machine learning", "ci/cd")
