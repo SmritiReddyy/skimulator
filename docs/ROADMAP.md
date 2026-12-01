@@ -46,7 +46,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `feat(backend)`: skills dictionary (`data/skills.json`) to prioritize real skills over filler words
 - [x] `feat(backend)`: synonym normalization (js ↔ javascript, k8s ↔ kubernetes, postgres ↔ postgresql)
 - [x] `test`: keyword extraction and synonym tests
-- [ ] `feat(frontend)`: group keywords into skills vs. other terms
+- [x] `feat(frontend)`: group keywords into skills vs. other terms
 
 ### Day 6: Tue Dec 1, DOCX support
 - [ ] `refactor(backend)`: a parser interface so PDF and DOCX share one pipeline

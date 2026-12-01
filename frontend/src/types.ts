@@ -10,6 +10,7 @@ export interface Issue {
 export interface KeywordMatch {
   matched: string[];
   missing: string[];
+  skills: string[];
   score: number;
 }
 
