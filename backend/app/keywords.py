@@ -87,12 +87,18 @@ def normalize(tokens: list[str]) -> list[str]:
     return out
 
 
+@cache
+def _known_terms() -> frozenset[str]:
+    """Every word that appears in a skill or alias, e.g. 'a/b' from 'a/b testing'."""
+    return frozenset(word for term in (*skills(), *SYNONYMS) for word in term.split())
+
+
 def tokenize(text: str) -> list[str]:
     raw: list[str] = []
     for token in TOKEN_RE.findall(text):
         token = token.lower().rstrip(".")
         # 'JS/TS' is two skills, but 'ci/cd' and 'a/b' are one term.
-        if "/" in token and token not in skills() and token not in SYNONYMS:
+        if "/" in token and token not in _known_terms():
             raw.extend(part for part in token.split("/") if part)
         else:
             raw.append(token)
