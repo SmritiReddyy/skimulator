@@ -11,7 +11,7 @@ from app.characters import (
 )
 from app.checks import run_checks
 from app.models import Contact
-from app.parser import ParsedResume
+from app.parsers import ParsedResume
 
 SECTIONS = ["experience", "education", "skills"]
 CONTACT = Contact(email="a@b.co", phone="555-123-4567")

@@ -16,7 +16,7 @@ from .characters import (
     is_safe_font,
 )
 from .models import Contact, Issue, Severity
-from .parser import ParsedResume
+from .parsers import ParsedResume
 from .sections import CORE_SECTIONS, detect_contact
 
 PENALTY = {Severity.critical: 30, Severity.warning: 10, Severity.info: 2}

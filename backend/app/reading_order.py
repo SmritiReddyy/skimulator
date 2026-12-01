@@ -11,7 +11,7 @@ from collections import Counter
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .parser import Line
+    from .parsers import Line
 
 MIN_GAP = 24  # points; much wider than normal word spacing
 MIN_ROWS = 5  # rows that must share a column edge before we call it a column

@@ -1,4 +1,4 @@
-from app.parser import parse_pdf
+from app.parsers.pdf import parse_pdf
 
 from .conftest import make_pdf, make_two_column_pdf
 

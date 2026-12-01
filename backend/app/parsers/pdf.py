@@ -1,43 +1,15 @@
 """Extract text and layout signals from a PDF the way a simple ATS parser would."""
 
-from dataclasses import dataclass, field
 from io import BytesIO
 
 import pdfplumber
 
-from .reading_order import mark_scrambled
+from ..reading_order import mark_scrambled
+from .base import Line, ParsedResume
 
 ROW_TOLERANCE = 3  # points; words whose tops differ by less than this share a row
 MARGIN_RATIO = 0.045  # top/bottom ~0.5in of a letter page, where Word puts headers/footers
 REPEAT_ZONE_RATIO = 0.12  # running headers repeated on every page can sit a little lower
-
-
-@dataclass
-class Line:
-    page: int
-    top: float
-    x0: float
-    x1: float
-    text: str
-    bottom: float = 0.0
-    words: list[dict] = field(default_factory=list, repr=False)
-    scrambled: bool = False
-    zone: str = "body"  # "header", "body" or "footer"
-
-
-@dataclass
-class ParsedResume:
-    text: str
-    page_count: int
-    lines: list[Line] = field(default_factory=list)
-    has_tables: bool = False
-    image_count: int = 0
-    multi_column_pages: list[int] = field(default_factory=list)
-    fonts: set[str] = field(default_factory=set)
-
-    @property
-    def body_text(self) -> str:
-        return "\n".join(line.text for line in self.lines if line.zone == "body")
 
 
 def group_rows(words: list[dict], page_no: int) -> list[Line]:

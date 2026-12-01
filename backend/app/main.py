@@ -5,7 +5,7 @@ from .characters import font_families
 from .checks import run_checks, score
 from .keywords import match_keywords
 from .models import AnalysisResult, TextLine
-from .parser import parse_pdf
+from .parsers import UnsupportedFormat, parse_document
 from .sections import detect_contact, detect_sections
 
 MAX_BYTES = 5 * 1024 * 1024
@@ -32,13 +32,12 @@ async def analyze(
     data = await file.read()
     if len(data) > MAX_BYTES:
         raise HTTPException(413, "File is larger than 5 MB.")
-    if not data.startswith(b"%PDF"):
-        raise HTTPException(415, "Only PDF files are supported for now.")
-
     try:
-        parsed = parse_pdf(data)
-    except Exception as exc:  # pdfplumber raises a variety of errors on bad input
-        raise HTTPException(422, "Could not read this PDF.") from exc
+        parsed = parse_document(data, file.filename or "")
+    except UnsupportedFormat as exc:
+        raise HTTPException(415, "Only PDF files are supported for now.") from exc
+    except Exception as exc:  # parsers raise a variety of errors on malformed input
+        raise HTTPException(422, "Could not read this file.") from exc
 
     sections = detect_sections(parsed.text)
     contact = detect_contact(parsed.text)

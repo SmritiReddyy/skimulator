@@ -1,4 +1,5 @@
-from app.parser import Line, mark_zones, parse_pdf
+from app.parsers import Line
+from app.parsers.pdf import mark_zones, parse_pdf
 
 from .conftest import make_header_contact_pdf
 

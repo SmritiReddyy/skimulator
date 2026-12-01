@@ -1,6 +1,6 @@
 from app.checks import CHECKS, run_checks, score
 from app.models import Contact, Issue, Severity
-from app.parser import ParsedResume
+from app.parsers import ParsedResume
 
 
 def _ctx_args(**overrides):
