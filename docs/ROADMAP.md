@@ -44,7 +44,7 @@ Status: `[ ]` todo · `[x]` done
 ### Day 5: Mon Nov 30, smarter keyword matching
 - [x] `feat(backend)`: bigram/trigram extraction ("machine learning", "ci/cd")
 - [x] `feat(backend)`: skills dictionary (`data/skills.json`) to prioritize real skills over filler words
-- [ ] `feat(backend)`: synonym normalization (js ↔ javascript, k8s ↔ kubernetes, postgres ↔ postgresql)
+- [x] `feat(backend)`: synonym normalization (js ↔ javascript, k8s ↔ kubernetes, postgres ↔ postgresql)
 - [ ] `test`: keyword extraction and synonym tests
 - [ ] `feat(frontend)`: group keywords into skills vs. other terms
 

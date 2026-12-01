@@ -36,8 +36,67 @@ def skills() -> frozenset[str]:
     return frozenset(skill for group in groups.values() for skill in group)
 
 
+# alias -> canonical form. Multi-word aliases are matched before single tokens.
+SYNONYMS = {
+    "js": "javascript",
+    "ts": "typescript",
+    "golang": "go",
+    "py": "python",
+    "k8s": "kubernetes",
+    "postgres": "postgresql",
+    "psql": "postgresql",
+    "mongo": "mongodb",
+    "node": "node.js",
+    "nodejs": "node.js",
+    "reactjs": "react",
+    "react.js": "react",
+    "vuejs": "vue",
+    "vue.js": "vue",
+    "nextjs": "next.js",
+    "ml": "machine learning",
+    "dl": "deep learning",
+    "natural language processing": "nlp",
+    "amazon web services": "aws",
+    "google cloud platform": "gcp",
+    "google cloud": "gcp",
+    "microsoft azure": "azure",
+    "cicd": "ci/cd",
+    "ci-cd": "ci/cd",
+    "sklearn": "scikit-learn",
+    "large language models": "llms",
+    "restful": "rest",
+    "springboot": "spring boot",
+}
+_MAX_ALIAS_WORDS = max(len(alias.split()) for alias in SYNONYMS)
+
+
+def normalize(tokens: list[str]) -> list[str]:
+    """Rewrite aliases to one canonical spelling so 'k8s' in a JD matches 'Kubernetes'."""
+    out: list[str] = []
+    i = 0
+    while i < len(tokens):
+        for size in range(_MAX_ALIAS_WORDS, 0, -1):
+            alias = " ".join(tokens[i : i + size])
+            if alias in SYNONYMS:
+                out.extend(SYNONYMS[alias].split())
+                i += size
+                break
+        else:
+            out.append(tokens[i])
+            i += 1
+    return out
+
+
 def tokenize(text: str) -> list[str]:
-    return [t.lower().rstrip(".") for t in TOKEN_RE.findall(text)]
+    raw: list[str] = []
+    for token in TOKEN_RE.findall(text):
+        token = token.lower().rstrip(".")
+        # 'JS/TS' is two skills, but 'ci/cd' and 'a/b' are one term.
+        if "/" in token and token not in skills() and token not in SYNONYMS:
+            raw.extend(part for part in token.split("/") if part)
+        else:
+            raw.append(token)
+    return normalize(raw)
 
 
 def _is_content(token: str) -> bool:
