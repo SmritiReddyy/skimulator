@@ -31,3 +31,6 @@ extend-immutable-calls = ["fastapi.File", "fastapi.Form", "fastapi.Depends"]
 
 [tool.pytest.ini_options]
 filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.setuptools.package-data]
+app = ["data/*.json"]

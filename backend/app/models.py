@@ -25,6 +25,7 @@ class Contact(BaseModel):
 class KeywordMatch(BaseModel):
     matched: list[str]
     missing: list[str]
+    skills: list[str] = []  # which of the keywords are known technical skills
     score: int  # 0-100
 
 
