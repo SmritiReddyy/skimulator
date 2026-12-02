@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
+from .bullets import analyze_bullets
 from .characters import font_families
 from .checks import run_checks, score
 from .keywords import match_keywords
@@ -51,6 +52,7 @@ async def analyze(
         sections=sections,
         fonts=font_families(parsed.fonts),
         issues=issues,
+        bullets=analyze_bullets(parsed.body_text or parsed.text),
         keywords=match_keywords(parsed.text, job_description) if job_description.strip() else None,
         extracted_text=parsed.text,
         lines=[

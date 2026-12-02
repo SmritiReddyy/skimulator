@@ -26,16 +26,38 @@ PHONE_RE = re.compile(r"(?:\+?\d{1,3}[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4
 LINKEDIN_RE = re.compile(r"linkedin\.com/in/[\w-]+", re.IGNORECASE)
 
 
+def heading_name(raw: str) -> str | None:
+    """The canonical section name if this line is a section heading, else None."""
+    line = raw.strip().strip(":").lower()
+    if not line or len(line.split()) > 4:
+        return None
+    for name, aliases in SECTION_ALIASES.items():
+        if line in aliases:
+            return name
+    return None
+
+
 def detect_sections(text: str) -> list[str]:
     found: list[str] = []
     for raw in text.splitlines():
-        line = raw.strip().strip(":").lower()
-        if not line or len(line.split()) > 4:
-            continue
-        for name, aliases in SECTION_ALIASES.items():
-            if name not in found and line in aliases:
-                found.append(name)
+        name = heading_name(raw)
+        if name and name not in found:
+            found.append(name)
     return found
+
+
+def split_sections(text: str) -> dict[str, list[str]]:
+    """Lines grouped under the section heading they appear beneath."""
+    out: dict[str, list[str]] = {}
+    current: str | None = None
+    for raw in text.splitlines():
+        name = heading_name(raw)
+        if name:
+            current = name
+            out.setdefault(name, [])
+        elif current and raw.strip():
+            out[current].append(raw.strip())
+    return out
 
 
 def detect_contact(text: str) -> Contact:

@@ -38,6 +38,11 @@ class TextLine(BaseModel):
     zone: str = "body"
 
 
+class BulletFeedback(BaseModel):
+    text: str
+    problems: list[str] = []
+
+
 class AnalysisResult(BaseModel):
     score: int  # 0-100
     page_count: int
@@ -47,5 +52,6 @@ class AnalysisResult(BaseModel):
     fonts: list[str] = []
     issues: list[Issue]
     keywords: KeywordMatch | None = None
+    bullets: list[BulletFeedback] = []
     extracted_text: str
     lines: list[TextLine] = []

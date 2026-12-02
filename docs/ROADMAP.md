@@ -55,7 +55,7 @@ Status: `[ ]` todo · `[x]` done
 - [x] `feat(frontend)`: accept `.docx` uploads and update the copy
 
 ### Day 7: Wed Dec 2, bullet-point quality
-- [ ] `feat(backend)`: split experience sections into bullets
+- [x] `feat(backend)`: split experience sections into bullets
 - [ ] `feat(backend)`: flag bullets with no numbers or metrics
 - [ ] `feat(backend)`: flag weak openers ("responsible for", "helped with") and bullets over 2 lines
 - [ ] `test`: bullet analysis tests
