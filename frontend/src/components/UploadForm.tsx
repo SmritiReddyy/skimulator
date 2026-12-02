@@ -43,7 +43,7 @@ export default function UploadForm({ loading, onSubmit }: Props) {
         <input
           ref={input}
           type="file"
-          accept="application/pdf"
+          accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           className="hidden"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
         />
@@ -51,8 +51,10 @@ export default function UploadForm({ loading, onSubmit }: Props) {
           <p className="font-medium">{file.name}</p>
         ) : (
           <>
-            <p className="font-medium">Drop your resume PDF here</p>
-            <p className="mt-1 text-sm text-slate-500">or click to browse. Max 5 MB.</p>
+            <p className="font-medium">Drop your resume here</p>
+            <p className="mt-1 text-sm text-slate-500">
+              PDF or Word (.docx), up to 5 MB. Or click to browse.
+            </p>
           </>
         )}
       </div>

@@ -8,11 +8,12 @@
 
 **Simulates how an applicant tracking system skims your resume, and shows you what survives.**
 
-Most companies run resumes through an ATS (Workday, Greenhouse, Lever, iCIMS) before a person reads them. These parsers are much dumber than people expect: two-column layouts get read straight across, tables get skipped, and text inside headers or images disappears. Skimulator parses your PDF the same naive way, shows you exactly what comes out, and tells you what to fix.
+Most companies run resumes through an ATS (Workday, Greenhouse, Lever, iCIMS) before a person reads them. These parsers are much dumber than people expect: two-column layouts get read straight across, tables get skipped, and text inside headers or images disappears. Skimulator parses your PDF or Word file the same naive way, shows you exactly what comes out, and tells you what to fix.
 
 ## Features
 
-- **Raw extraction view.** The plain text an ATS actually gets from your PDF.
+- **PDF and Word.** Upload a `.pdf` or `.docx` resume.
+- **Raw extraction view.** The plain text an ATS actually gets from your file, with lines that mix two columns highlighted.
 - **Layout checks.** Multi-column pages, tables, images and scanned or outlined text.
 - **Section detection.** Flags missing or non-standard headings for Experience, Education and Skills.
 - **Contact check.** Confirms your email and phone are readable in the body text.
@@ -23,9 +24,9 @@ Most companies run resumes through an ATS (Workday, Greenhouse, Lever, iCIMS) be
 
 | Layer    | Stack                                          |
 | -------- | ---------------------------------------------- |
-| Backend  | Python 3.11+, FastAPI, pdfplumber, Pydantic    |
+| Backend  | Python 3.11+, FastAPI, pdfplumber, python-docx, Pydantic |
 | Frontend | React 18, TypeScript, Vite, Tailwind CSS v4    |
-| Testing  | pytest (with generated fixture PDFs)           |
+| Testing  | pytest (with generated PDF and DOCX fixtures)  |
 
 ## Running locally
 
@@ -58,7 +59,7 @@ CI runs all of these on every push and pull request.
 
 | Field             | Type   | Required |
 | ----------------- | ------ | -------- |
-| `file`            | PDF    | yes      |
+| `file`            | PDF or DOCX | yes |
 | `job_description` | string | no       |
 
 Returns a score (0–100), detected sections, contact info, a list of issues with severity, an optional keyword match, and the extracted text. Interactive docs are at `http://localhost:8000/docs`.
