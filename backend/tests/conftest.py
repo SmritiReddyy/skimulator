@@ -1,6 +1,9 @@
 from io import BytesIO
 
 import pytest
+from docx import Document
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from fastapi.testclient import TestClient
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -89,6 +92,36 @@ def make_header_contact_pdf(pages: int = 1) -> bytes:
             y -= 16
         c.showPage()
     c.save()
+    return buf.getvalue()
+
+
+def make_docx(
+    text: str = GOOD_RESUME,
+    *,
+    header: str = "",
+    table: list[list[str]] | None = None,
+    columns: int = 1,
+    font: str = "Calibri",
+) -> bytes:
+    doc = Document()
+    if header:
+        doc.sections[0].header.paragraphs[0].text = header
+    for line in text.splitlines():
+        doc.add_paragraph().add_run(line).font.name = font
+    if table:
+        t = doc.add_table(rows=len(table), cols=len(table[0]))
+        for r, row in enumerate(table):
+            for c, value in enumerate(row):
+                t.cell(r, c).text = value
+    if columns > 1:
+        sect = doc.sections[0]._sectPr
+        cols = sect.find(qn("w:cols"))
+        if cols is None:
+            cols = OxmlElement("w:cols")
+            sect.append(cols)
+        cols.set(qn("w:num"), str(columns))
+    buf = BytesIO()
+    doc.save(buf)
     return buf.getvalue()
 
 

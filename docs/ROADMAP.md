@@ -51,7 +51,7 @@ Status: `[ ]` todo · `[x]` done
 ### Day 6: Tue Dec 1, DOCX support
 - [x] `refactor(backend)`: a parser interface so PDF and DOCX share one pipeline
 - [x] `feat(backend)`: DOCX parsing with python-docx (text, tables, headers/footers)
-- [ ] `test`: DOCX fixtures and tests
+- [x] `test`: DOCX fixtures and tests
 - [ ] `feat(frontend)`: accept `.docx` uploads and update the copy
 
 ### Day 7: Wed Dec 2, bullet-point quality
