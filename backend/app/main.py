@@ -35,7 +35,7 @@ async def analyze(
     try:
         parsed = parse_document(data, file.filename or "")
     except UnsupportedFormat as exc:
-        raise HTTPException(415, "Only PDF files are supported for now.") from exc
+        raise HTTPException(415, "Only PDF and DOCX files are supported.") from exc
     except Exception as exc:  # parsers raise a variety of errors on malformed input
         raise HTTPException(422, "Could not read this file.") from exc
 
